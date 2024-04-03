@@ -1,12 +1,13 @@
+import argparse
 from manifest import Manifest
 from api import Api
 from report import Report
 
-class orcinus:
+class Orcinus:
     def __init__(self):
         # Constructor
         pass
-    def run(self):
+    def run(self, options):
         manifest = Manifest()
         index = manifest.index()
         
@@ -20,8 +21,13 @@ class orcinus:
         data = api.connect_to_api(api_url)
         
         api_report = Report(data)
-        api_report.printReport()
+        api_report.printReport(options.reportType)
 
-if __name__ == "__main__":
-    main_instance = orcinus()
-    main_instance.run()
+if __name__ == "__main__":     
+    parser = argparse.ArgumentParser(description='Static analysis tool for docker containers.')     
+    parser.add_argument('reportType', choices=['reportCveCount', 'reportCveIds'], help='Select report type')     
+
+    args = parser.parse_args()      
+    main_instance = Orcinus()     
+    main_instance.run(args)
+

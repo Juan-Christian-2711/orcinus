@@ -160,3 +160,4 @@ cython_debug/
 #.idea/
 ignore vim
 .vim/
+api_data.json
